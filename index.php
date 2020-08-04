@@ -1,7 +1,7 @@
 <?php
   $lastName = 'My lastname';
   $name = 'My name';
-  $limitMonths = 12;
+  $limitMonths = 120;
   // $completeName = $name . ' ' . $lastName;
   // $completeNameComillaDoble = "My name $lastName";
   // var_dump($completeName, $completeNameComillaDoble);
@@ -13,34 +13,66 @@
       'title'=>'PHP Developer',
       'description'=>'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi sapiente sed pariatur sint exercitationem eos expedita eveniet veniam ullam, quia neque facilis dicta voluptatibus. Eveniet doloremque ipsum itaque obcaecati nihil.',
       'visible' => True,
-      'months' => 6,
+      'months' => 16,
     ],
     [
       'title'=>'Python Developer',
       'description'=>'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi sapiente sed pariatur sint exercitationem eos expedita eveniet veniam ullam, quia neque facilis dicta voluptatibus. Eveniet doloremque ipsum itaque obcaecati nihil.',
-      'visible' => True,
-      'months' => 4,
+      'visible' => false,
+      'months' => 24,
     ],
     [
       'title'=>'VB.NET Developer',
       'description'=>'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi sapiente sed pariatur sint exercitationem eos expedita eveniet veniam ullam, quia neque facilis dicta voluptatibus. Eveniet doloremque ipsum itaque obcaecati nihil.',
       'visible' => True,
-      'months' => 2,
+      'months' => 12,
     ],
     [
       'title'=>'Node Developer',
       'description'=>'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi sapiente sed pariatur sint exercitationem eos expedita eveniet veniam ullam, quia neque facilis dicta voluptatibus. Eveniet doloremque ipsum itaque obcaecati nihil.',
-      'visible' => False,
+      'visible' => true,
       'months' => 8,
     ],
     [
       'title'=>'Devops',
       'description'=>'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi sapiente sed pariatur sint exercitationem eos expedita eveniet veniam ullam, quia neque facilis dicta voluptatibus. Eveniet doloremque ipsum itaque obcaecati nihil.',
       'visible' => True,
-      'months' => 7,
-    ]
-  ]
+      'months' => 37,
+    ],
+  ];
 
+  function getDuration($months)
+  {
+    $years = floor($months/12);
+    $months = $months%12;
+    $message = "";
+    if($years == 0 or $months >0){
+      $message .="$months months";
+    }
+    if($years >= 1){
+      $message = "$years years " . $message;
+    }
+    return $message;
+  }
+
+  function printJob($job){
+    if ($job['visible'] == False){
+      return;
+     }
+
+    $duration = getDuration($job['months']);
+    echo "<li class=\"work-position\">
+            <h5>{$job['title']}</h5>
+            <p>{$job['description']}</p>
+            <p>{$duration} of experience</p>
+            <strong>Achievements:</strong>
+            <ul>
+              <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
+              <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
+              <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
+            </ul>
+          </li>";
+  }
 ?>
 
 <!doctype html>
@@ -103,21 +135,8 @@
                 if($totalMonths > $limitMonths){
                   break;
                 }
-
-                if ($job['visible'] != True){
-                 continue;
-                }
-                echo "<li class=\"work-position\">
-                        <h5>{$job['title']}</h5>
-                        <p>{$job['description']}</p>
-                        <p>{$job['months']} months of experience</p>
-                        <strong>Achievements:</strong>
-                        <ul>
-                          <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                          <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                          <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                        </ul>
-                      </li>";
+               
+                printJob($job);
                 // continue se utiliza para adelantar una iteración
               }
             ?>
