@@ -1,3 +1,13 @@
+<?php
+  $lastName = 'My lastname';
+  $name = 'My name';
+  $completeName = $name . ' ' . $lastName;
+  $completeNameComillaDoble = "My name $lastName";
+  // var_dump($completeName, $completeNameComillaDoble);
+
+
+?>
+
 <!doctype html>
 <html lang="en">
 
