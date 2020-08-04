@@ -1,6 +1,7 @@
 <?php
   $lastName = 'My lastname';
   $name = 'My name';
+  $limitMonths = 12;
   // $completeName = $name . ' ' . $lastName;
   // $completeNameComillaDoble = "My name $lastName";
   // var_dump($completeName, $completeNameComillaDoble);
@@ -12,26 +13,31 @@
       'title'=>'PHP Developer',
       'description'=>'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi sapiente sed pariatur sint exercitationem eos expedita eveniet veniam ullam, quia neque facilis dicta voluptatibus. Eveniet doloremque ipsum itaque obcaecati nihil.',
       'visible' => True,
+      'months' => 6,
     ],
     [
       'title'=>'Python Developer',
       'description'=>'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi sapiente sed pariatur sint exercitationem eos expedita eveniet veniam ullam, quia neque facilis dicta voluptatibus. Eveniet doloremque ipsum itaque obcaecati nihil.',
       'visible' => True,
+      'months' => 4,
     ],
     [
       'title'=>'VB.NET Developer',
       'description'=>'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi sapiente sed pariatur sint exercitationem eos expedita eveniet veniam ullam, quia neque facilis dicta voluptatibus. Eveniet doloremque ipsum itaque obcaecati nihil.',
       'visible' => True,
+      'months' => 2,
     ],
     [
       'title'=>'Node Developer',
       'description'=>'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi sapiente sed pariatur sint exercitationem eos expedita eveniet veniam ullam, quia neque facilis dicta voluptatibus. Eveniet doloremque ipsum itaque obcaecati nihil.',
       'visible' => False,
+      'months' => 8,
     ],
     [
       'title'=>'Devops',
       'description'=>'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi sapiente sed pariatur sint exercitationem eos expedita eveniet veniam ullam, quia neque facilis dicta voluptatibus. Eveniet doloremque ipsum itaque obcaecati nihil.',
-      'visible' => False,
+      'visible' => True,
+      'months' => 7,
     ]
   ]
 
@@ -85,19 +91,33 @@
           <h3 class="border-bottom-gray" >Work Experience</h3>
           <ul>
             <?php 
+            $totalMonths = 0;
               foreach( $jobs as $job){
-                if ($job['visible'] == True){
-                  echo "<li class=\"work-position\">
-                          <h5>{$job['title']}</h5>
-                          <p>{$job['description']}</p>
-                          <strong>Achievements:</strong>
-                          <ul>
-                            <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                            <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                            <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                          </ul>
-                        </li>";
+                // ++$var incremento instantaneo
+                // $var++ incremento hasta leer la variable
+                // +$a convierte la variale de string a number
+                // === es igual y del mismo tipo
+
+                $totalMonths += $job['months'];
+
+                if($totalMonths > $limitMonths){
+                  break;
                 }
+
+                if ($job['visible'] != True){
+                 continue;
+                }
+                echo "<li class=\"work-position\">
+                        <h5>{$job['title']}</h5>
+                        <p>{$job['description']}</p>
+                        <p>{$job['months']} months of experience</p>
+                        <strong>Achievements:</strong>
+                        <ul>
+                          <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
+                          <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
+                          <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
+                        </ul>
+                      </li>";
                 // continue se utiliza para adelantar una iteración
               }
             ?>
