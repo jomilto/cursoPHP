@@ -39,13 +39,13 @@
         <img id="profile-picture" src="https://ui-avatars.com/api/?name=John+Doe&size=255" alt="">
       </div>
       <div class="col">
-        <h1><?php echo 'Hector Benitez'; ?></h1>
+        <h1><?php echo 'Jose Lobato'; ?></h1>
         <h2>PHP Developer</h2>
         <ul>
-          <li>Mail: hector@mail.com</li>
+          <li>Mail: jose@mail.com</li>
           <li>Phone: 1234567890</li>
           <li>LinkedIn: https://linkedin.com</li>
-          <li>Twitter: @hectorbenitez</li>
+          <li>Twitter: @jomilto</li>
         </ul>
       </div>
     </div>
