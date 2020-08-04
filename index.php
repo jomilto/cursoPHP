@@ -1,10 +1,39 @@
 <?php
   $lastName = 'My lastname';
   $name = 'My name';
-  $completeName = $name . ' ' . $lastName;
-  $completeNameComillaDoble = "My name $lastName";
+  // $completeName = $name . ' ' . $lastName;
+  // $completeNameComillaDoble = "My name $lastName";
   // var_dump($completeName, $completeNameComillaDoble);
 
+  // array_reverse($jobs);
+
+  $jobs = [
+    [
+      'title'=>'PHP Developer',
+      'description'=>'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi sapiente sed pariatur sint exercitationem eos expedita eveniet veniam ullam, quia neque facilis dicta voluptatibus. Eveniet doloremque ipsum itaque obcaecati nihil.',
+      'visible' => True,
+    ],
+    [
+      'title'=>'Python Developer',
+      'description'=>'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi sapiente sed pariatur sint exercitationem eos expedita eveniet veniam ullam, quia neque facilis dicta voluptatibus. Eveniet doloremque ipsum itaque obcaecati nihil.',
+      'visible' => True,
+    ],
+    [
+      'title'=>'VB.NET Developer',
+      'description'=>'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi sapiente sed pariatur sint exercitationem eos expedita eveniet veniam ullam, quia neque facilis dicta voluptatibus. Eveniet doloremque ipsum itaque obcaecati nihil.',
+      'visible' => True,
+    ],
+    [
+      'title'=>'Node Developer',
+      'description'=>'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi sapiente sed pariatur sint exercitationem eos expedita eveniet veniam ullam, quia neque facilis dicta voluptatibus. Eveniet doloremque ipsum itaque obcaecati nihil.',
+      'visible' => False,
+    ],
+    [
+      'title'=>'Devops',
+      'description'=>'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi sapiente sed pariatur sint exercitationem eos expedita eveniet veniam ullam, quia neque facilis dicta voluptatibus. Eveniet doloremque ipsum itaque obcaecati nihil.',
+      'visible' => False,
+    ]
+  ]
 
 ?>
 
@@ -55,36 +84,23 @@
         <div>
           <h3 class="border-bottom-gray" >Work Experience</h3>
           <ul>
-            <li class="work-position">
-              <h5>PHP Developer</h5>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi sapiente sed pariatur sint exercitationem eos expedita eveniet veniam ullam, quia neque facilis dicta voluptatibus. Eveniet doloremque ipsum itaque obcaecati nihil.</p>
-              <strong>Achievements:</strong>
-              <ul>
-                <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-              </ul>
-            </li>
-            <li class="work-position">
-                <h5>PHP Developer</h5>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi sapiente sed pariatur sint exercitationem eos expedita eveniet veniam ullam, quia neque facilis dicta voluptatibus. Eveniet doloremque ipsum itaque obcaecati nihil.</p>
-                <strong>Achievements:</strong>
-                <ul>
-                  <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                  <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                  <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                </ul>
-              </li>
-              <li class="work-position">
-                  <h5>PHP Developer</h5>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi sapiente sed pariatur sint exercitationem eos expedita eveniet veniam ullam, quia neque facilis dicta voluptatibus. Eveniet doloremque ipsum itaque obcaecati nihil.</p>
-                  <strong>Achievements:</strong>
-                  <ul>
-                    <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                    <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                    <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                  </ul>
-                </li>
+            <?php 
+              foreach( $jobs as $job){
+                if ($job['visible'] == True){
+                  echo "<li class=\"work-position\">
+                          <h5>{$job['title']}</h5>
+                          <p>{$job['description']}</p>
+                          <strong>Achievements:</strong>
+                          <ul>
+                            <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
+                            <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
+                            <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
+                          </ul>
+                        </li>";
+                }
+                // continue se utiliza para adelantar una iteración
+              }
+            ?>
           </ul>
         </div>
         <div>
