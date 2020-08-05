@@ -71,7 +71,7 @@
                 // +$a convierte la variale de string a number
                 // === es igual y del mismo tipo
 
-                $totalMonths += $job['months'];
+                $totalMonths += $job->months;
 
                 if($totalMonths > $limitMonths){
                   break;
