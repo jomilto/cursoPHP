@@ -1,6 +1,8 @@
 <?php
 
-class BaseElement {
+require_once('Printable.php');
+
+class BaseElement implements Printable{
     // con private, solo esta clase puede acceder,
     // con protected, esta y las clases hijas pueden acceder
     private $title;
@@ -13,6 +15,11 @@ class BaseElement {
       $this->description = $description;
     }
   
+    public function getDescription()
+    {
+      return $this->description;
+    }
+
     public function getTitle(){
       return $this->title;
     }

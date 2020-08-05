@@ -2,6 +2,11 @@
 
 require_once('app/Models/Job.php');
 require_once('app/Models/Project.php');
+require_once('app/Models/Printable.php');
+
+// las interfaces sirven para "validar", que el dato que se envia,
+// a las funciones contenga ciertos metodos declarados o tipos de datos
+// en la clase se debe agregar que se implementa(implements) la interface
 
 $job1 = new Job('PHP Developer','Awesome job!!!!');
 $job1->months = 16;

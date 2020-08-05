@@ -75,6 +75,7 @@
 
                 if($totalMonths > $limitMonths){
                   break;
+                  // break se utiliza para salir del ciclo
                 }
                
                 $job->printElement();
