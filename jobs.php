@@ -5,8 +5,8 @@ require_once('app/Models/Project.php');
 require_once('app/Models/Printable.php');
 require_once('lib1/Project.php');
 
-use App\Models\Job;
-use App\Models\Project;
+use App\Models\{Job, Project};
+// use App\Models\Project;
 
 // las interfaces sirven para "validar", que el dato que se envia,
 // a las funciones contenga ciertos metodos declarados o tipos de datos
