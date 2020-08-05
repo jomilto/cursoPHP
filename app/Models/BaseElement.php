@@ -2,7 +2,11 @@
 
 namespace App\Models;
 
-require_once('Printable.php');
+// require_once('Printable.php');
+
+// las interfaces sirven para "validar", que el dato que se envia,
+// a las funciones contenga ciertos metodos declarados o tipos de datos
+// en la clase se debe agregar que se implementa(implements) la interface
 
 class BaseElement implements Printable{
     // con private, solo esta clase puede acceder,
