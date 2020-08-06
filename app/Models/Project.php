@@ -2,16 +2,21 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
+
 // require_once('BaseElement.php');
 
-class Project extends BaseElement{
+class Project extends Model{
+
+    protected $table = "projects";
+
     function printElement(){
-        if ($this->visible == False){
+        if ($this->active == False){
           return;
           }
 
         echo   "<div class=\"project\">
-                    <h5>{$this->getTitle()}</h5>
+                    <h5>{$this->title}</h5>
                     <div class=\"row\">
                         <div class=\"col-3\">
                             <img id=\"profile-picture\" src=\"https://ui-avatars.com/api/?name=John+Doe&size=255\" alt=\"\">

@@ -32,8 +32,10 @@ use App\Models\{Job, Project};
 
 $jobs = Job::all();
 
-$project1 = new Project('Project 1', 'First Project');
+$projects = Project::all();
 
-$projects = [
-  $project1,
-];
+// $project1 = new Project('Project 1', 'First Project');
+
+// $projects = [
+//   $project1,
+// ];
