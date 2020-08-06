@@ -1,14 +1,18 @@
 <?php
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
+
 // require_once('BaseElement.php');
 
-class Job extends BaseElement{
+class Job extends Model{
 
-    public function __construct($title,$description)
-    {
-        parent::__construct($title,$description);
-    }
+    // public function __construct($title,$description)
+    // {
+    //     parent::__construct($title,$description);
+    // }
+
+    protected $table = "jobs";
 
     public function printElement(){
         if ($this->visible == False){
