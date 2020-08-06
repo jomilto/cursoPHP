@@ -1,33 +1,10 @@
 <?php
   // Incluyelo si lo encuentras sino manda warning
-  
-  require_once('vendor/autoload.php');
-  
-  use Illuminate\Database\Capsule\Manager as Capsule;
-  
-  $capsule = new Capsule;
-  
-  $capsule->addConnection([
-    'driver'    => 'mysql',
-    'host'      => 'localhost',
-    'database'  => 'cursophp',
-    'username'  => 'root',
-    'password'  => '',
-    'charset'   => 'utf8',
-    'collation' => 'utf8_unicode_ci',
-    'prefix'    => '',
-    ]);
     
-    // Make this Capsule instance available globally via static methods... (optional)
-    $capsule->setAsGlobal();
-    
-    // Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
-    $capsule->bootEloquent();
-    
-    include_once("jobs.php");
-    
-    // require si no encuentra el archivo detiene la ejecución
-    // con require o include se ejecuta el código cada vez que se manda a llamar
+  include_once("jobs.php");
+
+  // require si no encuentra el archivo detiene la ejecución
+  // con require o include se ejecuta el código cada vez que se manda a llamar
   // si se usa _once, solo lo incluye una vez
 
   $lastName = 'My lastname';
