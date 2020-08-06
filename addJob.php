@@ -29,10 +29,10 @@ if (!empty($_POST)){
     $job->title = $_POST['title'];
     $job->description = $_POST['description'];
     $job->save();
+    var_dump($_POST);
 }
 
 // uso de variables super globales
-    var_dump($_POST);
 ?>
 <!DOCTYPE html>
 <html lang="es">

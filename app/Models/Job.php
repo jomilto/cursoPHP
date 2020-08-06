@@ -14,14 +14,29 @@ class Job extends Model{
 
     protected $table = "jobs";
 
+    public function getDurationAsString()
+    {
+      $years = floor($this->months/12);
+      $months = $this->months%12;
+      $message = "";
+      if($years == 0 or $months >0){
+        $message .="$months months";
+      }
+      if($years >= 1){
+        $message = "$years years " . $message;
+      }
+      return $message;
+    }
+
+
     public function printElement(){
-        if ($this->visible == False){
+        if ($this->active == False){
           return;
-          }
+        }        
       
         $duration = $this->getDurationAsString();
         echo "<li class=\"work-position\">
-                <h5>{$this->getTitle()}</h5>
+                <h5>{$this->title}</h5>
                 <p>{$this->description}</p>
                 <p>{$duration} of experience</p>
                 <strong>Achievements:</strong>
