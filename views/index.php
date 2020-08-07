@@ -1,15 +1,15 @@
 <?php
   // Incluyelo si lo encuentras sino manda warning
     
-  include_once("jobs.php");
+  // include_once("jobs.php");
 
   // require si no encuentra el archivo detiene la ejecución
   // con require o include se ejecuta el código cada vez que se manda a llamar
   // si se usa _once, solo lo incluye una vez
 
-  $lastName = 'My lastname';
-  $name = 'My name';
-  $limitMonths = 120;
+  // $lastName = 'My lastname';
+  // $name = 'My name';
+  // $limitMonths = 120;
   // $completeName = $name . ' ' . $lastName;
   // $completeNameComillaDoble = "My name $lastName";
   // var_dump($completeName, $completeNameComillaDoble);
