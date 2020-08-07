@@ -36,14 +36,17 @@
         $_FILES
     );
 
-    $baseDir = "/".strtolower(basename(dirname(__DIR__)));
+    function lookRoute($route){
+        $baseDir = "/".strtolower(basename(dirname(__DIR__)));
+        return $baseDir.$route;
+    }
 
     $routeContainer = new RouterContainer();
 
     $map = $routeContainer->getMap();
 
-    $map->get('index',$baseDir.'/','../index.php');
-    $map->get('addJobs',$baseDir.'/jobs/add','../addJob.php');
+    $map->get('index',lookRoute('/'),'../index.php');
+    $map->get('addJobs',lookRoute('/jobs/add'),'../addJob.php');
 
     $matcher = $routeContainer->getMatcher();
 
