@@ -1,14 +1,14 @@
 <?php
 
-use App\Models\Job;
+// use App\Models\Job;
 
-if (!empty($_POST)){
-    $job = new Job();
-    $job->title = $_POST['title'];
-    $job->description = $_POST['description'];
-    $job->save();
-    var_dump($_POST);
-}
+// if (!empty($_POST)){
+//     $job = new Job();
+//     $job->title = $_POST['title'];
+//     $job->description = $_POST['description'];
+//     $job->save();
+//     var_dump($_POST);
+// }
 
 // uso de variables super globales
 ?>
@@ -23,7 +23,7 @@ if (!empty($_POST)){
 </head>
 <body>
     <h2>Add Job</h2>
-    <form action="addJob.php" method="post">
+    <form action="../jobs/add" method="post">
     <label for="title">Title</label>
     <input type="text" name="title" id="title"><br/>
     <label for="description">Description</label>

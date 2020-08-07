@@ -49,7 +49,15 @@
         'controller' => 'App\Controllers\IndexController',
         'action' => 'index'
     ]);
-    $map->get('addJobs',lookRoute('/jobs/add'),'../addJob.php');
+    $map->get('addJobs',lookRoute('/jobs/add'),[
+        'controller' => 'App\Controllers\JobsController',
+        'action' => 'index'
+    ]);
+
+    $map->post('saveJobs',lookRoute('/jobs/add'),[
+        'controller' => 'App\Controllers\JobsController',
+        'action' => 'add'
+    ]);
 
     $matcher = $routeContainer->getMatcher();
 
@@ -62,7 +70,7 @@
         $controllerName = $handlerData['controller'];
         $actionName = $handlerData['action'];
         $controller = new $controllerName;
-        $controller->$actionName();
+        $controller->$actionName($request);
     }
 
     // $route = $_GET['route'] ?? '/';
