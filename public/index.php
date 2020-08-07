@@ -7,6 +7,7 @@
     require_once('../vendor/autoload.php');
 
     use Illuminate\Database\Capsule\Manager as Capsule;
+    use Aura\Router\RouterContainer;
   
     $capsule = new Capsule;
     
@@ -27,7 +28,7 @@
     // Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
     $capsule->bootEloquent();
 
-    $request = Zend\Diactoros\ServerRequestFactory::fromGlobals(
+    $request = Laminas\Diactoros\ServerRequestFactory::fromGlobals(
         $_SERVER,
         $_GET,
         $_POST,
@@ -35,7 +36,24 @@
         $_FILES
     );
 
-    var_dump($request->getUri()->getPath());
+    $baseDir = "/".strtolower(basename(dirname(__DIR__)));
+
+    $routeContainer = new RouterContainer();
+
+    $map = $routeContainer->getMap();
+
+    $map->get('index',$baseDir.'/','../index.php');
+    $map->get('addJobs',$baseDir.'/jobs/add','../addJob.php');
+
+    $matcher = $routeContainer->getMatcher();
+
+    $route = $matcher->match($request);
+
+    if (!$route){
+        echo 'Esta ruta no existe';
+    }else{
+        require $route->handler;
+    }
 
     // $route = $_GET['route'] ?? '/';
 
