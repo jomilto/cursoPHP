@@ -45,7 +45,10 @@
 
     $map = $routeContainer->getMap();
 
-    $map->get('index',lookRoute('/'),'../index.php');
+    $map->get('index',lookRoute('/'),[
+        'controller' => 'App\Controllers\IndexController',
+        'action' => 'index'
+    ]);
     $map->get('addJobs',lookRoute('/jobs/add'),'../addJob.php');
 
     $matcher = $routeContainer->getMatcher();
@@ -55,7 +58,11 @@
     if (!$route){
         echo 'Esta ruta no existe';
     }else{
-        require $route->handler;
+        $handlerData = $route->handler;
+        $controllerName = $handlerData['controller'];
+        $actionName = $handlerData['action'];
+        $controller = new $controllerName;
+        $controller->$actionName();
     }
 
     // $route = $_GET['route'] ?? '/';
