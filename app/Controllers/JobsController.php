@@ -43,7 +43,7 @@ class JobsController extends BaseController {
             $responseMessage = 'Job saved';
             $responseType = 'success';
         }else{
-            // https://respect-validation.readthedocs.io/en/2.0/feature-guide/
+            // https://respect-validation.readthedocs.io/en/2.0/feature-guide/#getting-all-messages-as-an-array
             // para mejor validación ^
             $responseMessage = 'Job cant be saved';
             $responseType = 'danger';
