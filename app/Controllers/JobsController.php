@@ -18,12 +18,12 @@ class JobsController extends BaseController {
         $metodo = $request->getMethod();
         // Obtenemos los datos
         $data = $request->getParsedBody();
-        var_dump($request);
+        // var_dump($request);
         // check validator with images
 
         $jobValidator = Validator::key('title', Validator::stringType()->notEmpty())
-                                 ->key('description', Validator::stringType()->notEmpty())
-                                 ->key('logo', Validator::image()->notEmpty());
+                                 ->key('description', Validator::stringType()->notEmpty());
+                                //  ->key('logo', Validator::image()->notEmpty());
 
         if($jobValidator->validate($data)){
             $job = new Job();
@@ -44,7 +44,6 @@ class JobsController extends BaseController {
         }else{
             // https://respect-validation.readthedocs.io/en/2.0/feature-guide/#getting-all-messages-as-an-array
             // para mejor validación ^
-
             
             $responseMessage = 'Job cant be saved: ';
             $responseType = 'danger';
