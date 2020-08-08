@@ -16,6 +16,12 @@ uso de variables super globales
 
 {% block content %}
     <h2>Add Job</h2>
+    {% if responseMessage %}
+    <div class="alert alert-{{responseType}}" role="alert">
+        {{ responseMessage }}
+    </div>
+    {% endif %}
+
     <form action="../jobs/add" method="post">
     <label for="title">Title</label>
     <input type="text" name="title" id="title"><br/>
