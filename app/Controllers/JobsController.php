@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\{Job};
 use Respect\Validation\Validator;
+use Respect\Validation\Exceptions\NestedValidationException;
 
 class JobsController extends BaseController {
     public function index(){
@@ -17,14 +18,12 @@ class JobsController extends BaseController {
         $metodo = $request->getMethod();
         // Obtenemos los datos
         $data = $request->getParsedBody();
-
-        
-
-        
+        var_dump($request);
+        // check validator with images
 
         $jobValidator = Validator::key('title', Validator::stringType()->notEmpty())
                                  ->key('description', Validator::stringType()->notEmpty())
-                                 ->key('logo', Validator::image());
+                                 ->key('logo', Validator::image()->notEmpty());
 
         if($jobValidator->validate($data)){
             $job = new Job();
@@ -45,8 +44,15 @@ class JobsController extends BaseController {
         }else{
             // https://respect-validation.readthedocs.io/en/2.0/feature-guide/#getting-all-messages-as-an-array
             // para mejor validación ^
-            $responseMessage = 'Job cant be saved';
+
+            
+            $responseMessage = 'Job cant be saved: ';
             $responseType = 'danger';
+            try {
+                $jobValidator->assert($data);
+            } catch(NestedValidationException $exception) {
+                $responseMessage .= $exception->getFullMessage();
+            }
         }
 
         return  $this->renderHTML('addJob.twig',[
