@@ -40,7 +40,7 @@
         <img id="profile-picture" src="https://ui-avatars.com/api/?name=John+Doe&size=255" alt="">
       </div>
       <div class="col">
-        <h1><?php echo 'Jose Lobato'; ?></h1>
+        <h1>{{ name }}</h1>
         <h2>PHP Developer</h2>
         <ul>
           <li>Mail: jose@mail.com</li>
@@ -64,7 +64,10 @@
         <div>
           <h3 class="border-bottom-gray" >Work Experience</h3>
           <ul>
-            <?php 
+            {% for job in jobs %}
+              {{ job.printElement() }}
+            {% endfor %}
+            {# <?php 
             $totalMonths = 0;
               foreach( $jobs as $job){
                 
@@ -83,16 +86,14 @@
                 $job->printElement();
                 // continue se utiliza para adelantar una iteración
               }
-            ?>
+            ?> #}
           </ul>
         </div>
         <div>
             <h3 class="border-bottom-gray">Projects</h3>
-              <?php 
-                foreach ($projects as $project){
-                  $project->printElement();
-                }
-              ?>
+              {% for project in projects %}
+                {{ project.printElement() }}
+              {% endfor %}
           </div>
       </div>
       <div class="col-3">

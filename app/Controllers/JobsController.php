@@ -6,7 +6,7 @@ use App\Models\{Job};
 
 class JobsController extends BaseController {
     public function index(){
-        echo  $this->renderHTML('addJob.twig');
+        return  $this->renderHTML('addJob.twig');
     }
     public function add($request)
     {   
@@ -20,6 +20,6 @@ class JobsController extends BaseController {
         $job->description = $data['description'];
         $job->save();
 
-        echo  $this->renderHTML('addJob.twig');
+        return  $this->renderHTML('addJob.twig');
     }
 }
