@@ -30,6 +30,7 @@ class Job extends Model{
 
 
     public function printElement(){
+      die;
         if ($this->active == False){
           return;
         }        

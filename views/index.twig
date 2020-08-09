@@ -32,7 +32,9 @@
         <h3 class="border-bottom-gray" >Work Experience</h3>
         <ul>
           {% for job in jobs %}
-            {{ job.printElement() }}
+          <li class=\"work-position\">
+            <h5>{{ job.title }}</h5>
+            <p>{{ job.description }}</p>
           {% endfor %}
           {# <?php 
           $totalMonths = 0;
