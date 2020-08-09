@@ -29,6 +29,7 @@ class JobsController extends BaseController {
             $job = new Job();
             $job->title = $data['title'];
             $job->description = $data['description'];
+            $job->months = $data['months'];
             $job->save();
 
             $files = $request->getUploadedFiles();
