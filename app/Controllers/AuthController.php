@@ -24,6 +24,7 @@ class AuthController extends BaseController {
             if(password_verify($data['password'],$user->password)){
                 $responseType = 'success'; 
                 $responseMessage = 'Logged';
+                $_SESSION['user_id'] = $user->id;
                 return $this->redirectHTML('admin');
             }else{
                 $responseType = 'danger'; 
@@ -33,9 +34,16 @@ class AuthController extends BaseController {
             $responseType = 'danger'; 
             $responseMessage = 'Bad Credencials';
         }
+        
         return  $this->renderHTML('login.twig',[
             'responseMessage' => $responseMessage,
             'responseType' => $responseType
         ]);
+    }
+
+    public function logout()
+    {
+        unset($_SESSION['user_id']);
+        return $this->redirectHTML('login');   
     }
 }

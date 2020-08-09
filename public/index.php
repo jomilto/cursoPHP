@@ -6,6 +6,8 @@
 
     require_once('../vendor/autoload.php');
 
+    session_start();
+
     use Illuminate\Database\Capsule\Manager as Capsule;
     use Aura\Router\RouterContainer;
   
@@ -51,22 +53,26 @@
     ]);
     $map->get('addJobs',lookRoute('/jobs/add'),[
         'controller' => 'App\Controllers\JobsController',
-        'action' => 'index'
+        'action' => 'index',
+        'auth' => true
     ]);
 
     $map->post('saveJobs',lookRoute('/jobs/add'),[
         'controller' => 'App\Controllers\JobsController',
-        'action' => 'add'
+        'action' => 'add',
+        'auth' => true
     ]);
 
     $map->get('addUsers',lookRoute('/users/add'),[
         'controller' => 'App\Controllers\UsersController',
-        'action' => 'index'
+        'action' => 'index',
+        'auth' => true
     ]);
 
     $map->post('saveUsers',lookRoute('/users/add'),[
         'controller' => 'App\Controllers\UsersController',
-        'action' => 'add'
+        'action' => 'add',
+        'auth' => true
     ]);
 
     $map->get('loginForm',lookRoute('/login'),[
@@ -79,9 +85,16 @@
         'action' => 'auth'
     ]);
 
+    $map->get('logout',lookRoute('/logout'),[
+        'controller' => 'App\Controllers\AuthController',
+        'action' => 'logout',
+        'auth' => true
+    ]);
+
     $map->get('admin',lookRoute('/admin'),[
         'controller' => 'App\Controllers\AdminController',
-        'action' => 'index'
+        'action' => 'index',
+        'auth' => true
     ]);
 
     $matcher = $routeContainer->getMatcher();
@@ -92,8 +105,16 @@
         echo 'Esta ruta no existe';
     }else{
         $handlerData = $route->handler;
-        $controllerName = $handlerData['controller'];
-        $actionName = $handlerData['action'];
+        $needsAuth = $handlerData['auth'] ?? false;
+        $userId = $_SESSION['user_id'] ?? null;
+
+        if($needsAuth && !$userId){
+            $controllerName = 'App\Controllers\AuthController';
+            $actionName = 'index';
+        }else{
+            $controllerName = $handlerData['controller'];
+            $actionName = $handlerData['action'];
+        }
         $controller = new $controllerName;
         $response = $controller->$actionName($request);
 
