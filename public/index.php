@@ -8,8 +8,12 @@
 
     session_start();
 
-    // $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
-    // $dotenv->load();
+    $serverName = $_SERVER['SERVER_NAME'];
+
+    if ($serverName == 'localhost'){
+        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+        $dotenv->load();
+    }
 
     use Illuminate\Database\Capsule\Manager as Capsule;
     use Aura\Router\RouterContainer;
@@ -43,7 +47,12 @@
 
     function lookRoute($route){
         $baseDir = "/".strtolower(basename(dirname(__DIR__)));
-        return $route;
+        $serverName = $_SERVER['SERVER_NAME'];
+        if ($serverName == 'localhost'){
+            return $baseDir.$route;
+        }else{
+            return $route;
+        }
     }
 
     $routeContainer = new RouterContainer();
