@@ -8,6 +8,9 @@
 
     session_start();
 
+    $doenv = new Dotenv\Dotenv(__DIR__ . '/..');
+    $dotenv->load();
+
     use Illuminate\Database\Capsule\Manager as Capsule;
     use Aura\Router\RouterContainer;
   
@@ -15,10 +18,10 @@
     
     $capsule->addConnection([
         'driver'    => 'mysql',
-        'host'      => 'localhost',
-        'database'  => 'cursophp',
-        'username'  => 'root',
-        'password'  => '',
+        'host'      => getenv('DB_HOST'),
+        'database'  => getenv('DB_NAME'),
+        'username'  => getenv('DB_USER'),
+        'password'  => getenv('DB_PWD'),
         'charset'   => 'utf8',
         'collation' => 'utf8_unicode_ci',
         'prefix'    => '',
