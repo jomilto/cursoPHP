@@ -8,8 +8,8 @@
 
     session_start();
 
-    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
-    $dotenv->load();
+    // $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+    // $dotenv->load();
 
     use Illuminate\Database\Capsule\Manager as Capsule;
     use Aura\Router\RouterContainer;
