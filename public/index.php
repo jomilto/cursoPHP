@@ -15,13 +15,15 @@
         $dotenv->load();
     }
 
+    var_dump($_ENV);
+
     use Illuminate\Database\Capsule\Manager as Capsule;
     use Aura\Router\RouterContainer;
   
     $capsule = new Capsule;
     
     $capsule->addConnection([
-        'driver'    => 'mysql',
+        'driver'    => $_ENV['DB_DRIVE'],
         'host'      => $_ENV['DATABASE_URL'],
         'database'  => $_ENV['DB_NAME'],
         'username'  => $_ENV['DB_USER'],
