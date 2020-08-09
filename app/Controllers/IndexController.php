@@ -13,12 +13,12 @@ class IndexController extends BaseController{
         $name = 'My name';
         $limitMonths = 10;
 
-        $filterFun = function (array $job) use($limitMonths)
-        {
-            return $job['months'] >= $limitMonths;
-        };
+        // $filterFun = function (array $job) use($limitMonths)
+        // {
+        //     return $job['months'] >= $limitMonths;
+        // };
 
-        $jobs = array_filter($jobs->toArray(), $filterFun);
+        // $jobs = array_filter($jobs->toArray(), $filterFun);
 
         return $this->renderHTML('index.twig',[
             'name' => $name,

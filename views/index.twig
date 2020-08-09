@@ -30,33 +30,17 @@
     <div class="col">
       <div>
         <h3 class="border-bottom-gray" >Work Experience</h3>
-        <ul>
           {% for job in jobs %}
-          <li class=\"work-position\">
-            <h5>{{ job.title }}</h5>
-            <p>{{ job.description }}</p>
+            <div class = "row work-position">
+              <div class = "col-3">
+                <img src = "{{job.image}}" alt="imagen-job-{{job.id}}">
+              </div>
+              <div class = "col">
+                <h5>{{ job.title }}</h5>
+                <p>{{ job.description }}</p>
+              </div>
+            </div>
           {% endfor %}
-          {# <?php 
-          $totalMonths = 0;
-            foreach( $jobs as $job){
-              
-              // ++$var incremento instantaneo
-              // $var++ incremento hasta leer la variable
-              // +$a convierte la variale de string a number
-              // === es igual y del mismo tipo
-
-              $totalMonths += $job->months;
-
-              if($totalMonths > $limitMonths){
-                break;
-                // break se utiliza para salir del ciclo
-              }
-              
-              $job->printElement();
-              // continue se utiliza para adelantar una iteración
-            }
-          ?> #}
-        </ul>
       </div>
       <div>
           <h3 class="border-bottom-gray">Projects</h3>
