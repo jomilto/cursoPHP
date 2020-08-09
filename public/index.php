@@ -29,7 +29,7 @@
         'username'  => $_ENV['DB_USER'],
         'password'  => $_ENV['DB_PWD'],
         'port'      => $_ENV['DB_PORT'],
-        'sslmode'   => $_ENV['sslmode'],
+        'sslmode'   => $_ENV['SSLMODE'],
         'charset'   => 'utf8',
         'collation' => 'utf8_unicode_ci',
         'prefix'    => '',
