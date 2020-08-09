@@ -18,6 +18,7 @@ class JobsController extends BaseController {
         $metodo = $request->getMethod();
         // Obtenemos los datos
         $data = $request->getParsedBody();
+        $urlImage='';
         // var_dump($request);
         // check validator with images
 
@@ -26,19 +27,21 @@ class JobsController extends BaseController {
                                 //  ->key('logo', Validator::image()->notEmpty());
 
         if($jobValidator->validate($data)){
-            $job = new Job();
-            $job->title = $data['title'];
-            $job->description = $data['description'];
-            $job->months = $data['months'];
-            $job->save();
-
             $files = $request->getUploadedFiles();
             $logo = $files['logo'];
 
             if($logo->getError() == UPLOAD_ERR_OK){
                 $fileName = $logo->getClientFilename();
-                $logo->moveTo("uploads/$fileName");
+                $urlImage = "uploads/$fileName";
+                $logo->moveTo($urlImage);
             }
+
+            $job = new Job();
+            $job->title = $data['title'];
+            $job->description = $data['description'];
+            $job->months = $data['months'];
+            $job->url_image = $urlImage;
+            $job->save();
 
             $responseMessage = 'Job saved';
             $responseType = 'success';
