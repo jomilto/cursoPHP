@@ -5,13 +5,14 @@ namespace App\Controllers;
 use App\Models\{User};
 use Respect\Validation\Validator;
 use Respect\Validation\Exceptions\NestedValidationException;
+use Laminas\Diactoros\ServerRequest;
 
 class AuthController extends BaseController {
     public function index(){
         return  $this->renderHTML('login.twig');
     }
 
-    public function auth($request)
+    public function auth(ServerRequest $request)
     {
         $responseType = ''; 
         $responseMessage = '';

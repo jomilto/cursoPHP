@@ -13,7 +13,7 @@ class IndexController extends BaseController{
         $name = 'My name';
         $limitMonths = 10;
 
-        $filterFun = function ($job) use($limitMonths)
+        $filterFun = function (array $job) use($limitMonths)
         {
             return $job['months'] >= $limitMonths;
         };
