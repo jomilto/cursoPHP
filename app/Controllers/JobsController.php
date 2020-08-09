@@ -34,7 +34,7 @@ class JobsController extends BaseController {
             $files = $request->getUploadedFiles();
             $logo = $files['logo'];
 
-            if($logo->getError() == UPLOAD_ERROR_OK){
+            if($logo->getError() == UPLOAD_ERR_OK){
                 $fileName = $logo->getClientFilename();
                 $logo->moveTo("uploads/$fileName");
             }
