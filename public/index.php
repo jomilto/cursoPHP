@@ -79,6 +79,11 @@
         'action' => 'auth'
     ]);
 
+    $map->get('admin',lookRoute('/admin'),[
+        'controller' => 'App\Controllers\AdminController',
+        'action' => 'index'
+    ]);
+
     $matcher = $routeContainer->getMatcher();
 
     $route = $matcher->match($request);
