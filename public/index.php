@@ -8,7 +8,7 @@
 
     session_start();
 
-    $doenv = new Dotenv\Dotenv(__DIR__ . '/..');
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
     $dotenv->load();
 
     use Illuminate\Database\Capsule\Manager as Capsule;
@@ -18,10 +18,10 @@
     
     $capsule->addConnection([
         'driver'    => 'mysql',
-        'host'      => getenv('DB_HOST'),
-        'database'  => getenv('DB_NAME'),
-        'username'  => getenv('DB_USER'),
-        'password'  => getenv('DB_PWD'),
+        'host'      => $_ENV['DB_HOST'],
+        'database'  => $_ENV['DB_NAME'],
+        'username'  => $_ENV['DB_USER'],
+        'password'  => $_ENV['DB_PWD'],
         'charset'   => 'utf8',
         'collation' => 'utf8_unicode_ci',
         'prefix'    => '',
