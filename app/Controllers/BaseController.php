@@ -5,6 +5,7 @@ namespace App\Controllers;
 use Twig\Loader\FilesystemLoader as TwigViews;
 use Twig\Environment;
 use Laminas\Diactoros\Response\HtmlResponse;
+use Laminas\Diactoros\Response\RedirectResponse;
 
 class BaseController {
     protected $templateEngine;
@@ -25,5 +26,10 @@ class BaseController {
                     ->templateEngine
                     ->render($fileName, $data)
                 );
+    }
+
+    public function redirectHTML($route)
+    {
+        return new RedirectResponse($route);
     }
 }
