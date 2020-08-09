@@ -59,6 +59,16 @@
         'action' => 'add'
     ]);
 
+    $map->get('addUsers',lookRoute('/users/add'),[
+        'controller' => 'App\Controllers\UsersController',
+        'action' => 'index'
+    ]);
+
+    $map->post('saveUsers',lookRoute('/users/add'),[
+        'controller' => 'App\Controllers\UsersController',
+        'action' => 'add'
+    ]);
+
     $matcher = $routeContainer->getMatcher();
 
     $route = $matcher->match($request);

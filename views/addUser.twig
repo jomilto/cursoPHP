@@ -1,0 +1,18 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+    <h2>Add User</h2>
+    {% if responseMessage %}
+    <div class="alert alert-{{responseType}}" role="alert">
+        {{ responseMessage }}
+    </div>
+    {% endif %}
+
+    <form action="../users/add" method="post" enctype="multipart/form-data">
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email"><br/>
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password"><br/>
+    <button type="submit">Save</button>
+    </form>
+{% endblock %}
