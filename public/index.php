@@ -15,7 +15,7 @@
         $dotenv->load();
     }
 
-    var_dump($_ENV);
+    // var_dump($_ENV);
 
     use Illuminate\Database\Capsule\Manager as Capsule;
     use Aura\Router\RouterContainer;
@@ -28,7 +28,8 @@
         'database'  => $_ENV['DB_NAME'],
         'username'  => $_ENV['DB_USER'],
         'password'  => $_ENV['DB_PWD'],
-        'port'      =>$_ENV['DB_PORT'],
+        'port'      => $_ENV['DB_PORT'],
+        'sslmode'   => $_ENV['sslmode'],
         'charset'   => 'utf8',
         'collation' => 'utf8_unicode_ci',
         'prefix'    => '',
