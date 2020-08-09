@@ -43,7 +43,7 @@
 
     function lookRoute($route){
         $baseDir = "/".strtolower(basename(dirname(__DIR__)));
-        return $baseDir.$route;
+        return $route;
     }
 
     $routeContainer = new RouterContainer();
