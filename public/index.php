@@ -28,6 +28,7 @@
         'database'  => $_ENV['DB_NAME'],
         'username'  => $_ENV['DB_USER'],
         'password'  => $_ENV['DB_PWD'],
+        'port'      =>$_ENV['DB_PORT'],
         'charset'   => 'utf8',
         'collation' => 'utf8_unicode_ci',
         'prefix'    => '',
