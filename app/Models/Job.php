@@ -1,12 +1,13 @@
 <?php
 namespace App\Models;
 
+use App\Traits\{HasDefaultImage};
 use Illuminate\Database\Eloquent\Model;
 
 // require_once('BaseElement.php');
 
 class Job extends Model{
-
+    use HasDefaultImage;
     // public function __construct($title,$description)
     // {
     //     parent::__construct($title,$description);
@@ -30,14 +31,12 @@ class Job extends Model{
 
 
     public function printElement(){
-      die;
         if ($this->active == False){
           return;
         }        
       
         $duration = $this->getDurationAsString();
-        echo "<li class=\"work-position\">
-                <h5>{$this->title}</h5>
+        echo "  <h5>{$this->title}</h5>
                 <p>{$this->description}</p>
                 <p>{$duration} of experience</p>
                 <strong>Achievements:</strong>
@@ -45,7 +44,6 @@ class Job extends Model{
                   <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
                   <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
                   <li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>
-                </ul>
-              </li>";
+                </ul>";
       }
 }

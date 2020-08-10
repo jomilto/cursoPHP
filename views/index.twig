@@ -33,11 +33,10 @@
           {% for job in jobs %}
             <div class = "row work-position">
               <div class = "col-3">
-                <img src = "{{job.image}}" alt="imagen-job-{{job.id}}">
+                <img src = "{{job.getImage()}}" alt="imagen-job-{{job.id}}">
               </div>
               <div class = "col">
-                <h5>{{ job.title }}</h5>
-                <p>{{ job.description }}</p>
+                {{job.printElement()}}
               </div>
             </div>
           {% endfor %}
