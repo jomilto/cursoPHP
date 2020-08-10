@@ -1,0 +1,54 @@
+{# <?php
+
+ use App\Models\Job;
+
+ if (!empty($_POST)){
+     $job = new Job();
+     $job->title = $_POST['title'];
+     $job->description = $_POST['description'];
+     $job->save();
+     var_dump($_POST);
+ }
+
+uso de variables super globales 
+?>#}
+{% extends "layout.twig" %}
+
+{% block content %}
+    <h2>Add Job</h2>
+    {% if responseMessage %}
+    <div class="alert alert-{{responseType}}" role="alert">
+        {{ responseMessage }}
+    </div>
+    {% endif %}
+
+    <form action="../jobs/add" method="post" enctype="multipart/form-data">
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title"><br/>
+        <label for="description">Description</label>
+        <input type="text" name="description" id="description"><br/>
+        <label for="months">Months</label>
+        <input type="number" name="months" id="months"><br/>
+        <input type="file" name="logo"><br />
+        <button type="submit">Save</button>
+    </form>
+
+    <br/>
+    <br/>
+
+    <div class="row"> 
+        <h1>Jobs</h1>
+        <table class="table">
+            <tr> 
+                <th>Job Title</th>
+                <th> Delete</th>
+            <tr>
+            {% for job in jobs %}
+                <tr> 
+                    <td>{{job.title}}</td>
+                    <td> <a href="../jobs/delete?id={{job.id}}"> Delete</a></td>
+                <tr>
+            {% endfor %}
+        </table>
+    <div> 
+{% endblock %}

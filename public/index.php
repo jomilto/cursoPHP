@@ -15,8 +15,6 @@
         $dotenv->load();
     }
 
-    // var_dump($_ENV);
-
     use Illuminate\Database\Capsule\Manager as Capsule;
     use Aura\Router\RouterContainer;
   
@@ -67,6 +65,7 @@
         'controller' => 'App\Controllers\IndexController',
         'action' => 'index'
     ]);
+
     $map->get('addJobs',lookRoute('/jobs/add'),[
         'controller' => 'App\Controllers\JobsController',
         'action' => 'index',
@@ -76,6 +75,12 @@
     $map->post('saveJobs',lookRoute('/jobs/add'),[
         'controller' => 'App\Controllers\JobsController',
         'action' => 'add',
+        'auth' => true
+    ]);
+
+    $map->get('deleteJobs',lookRoute('/jobs/delete'),[
+        'controller' => 'App\Controllers\JobsController',
+        'action' => 'delete',
         'auth' => true
     ]);
 

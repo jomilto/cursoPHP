@@ -5,12 +5,14 @@ namespace App\Controllers;
 use App\Models\{Job};
 use Respect\Validation\Validator;
 use Respect\Validation\Exceptions\NestedValidationException;
+use Laminas\Diactoros\ServerRequest;
 
 class JobsController extends BaseController {
     public function index(){
-        return  $this->renderHTML('addJob.twig');
+        $jobs = Job::all();
+        return  $this->renderHTML('jobs/addJob.twig',compact('jobs'));
     }
-    public function add($request)
+    public function add(ServerRequest $request)
     {   
         $responseMessage = '';
         $responseType = '';
@@ -58,9 +60,19 @@ class JobsController extends BaseController {
             }
         }
 
-        return  $this->renderHTML('addJob.twig',[
+        $jobs = Job::all();
+
+        return  $this->renderHTML('jobs/addJob.twig',[
             'responseMessage' => $responseMessage,
-            'responseType' => $responseType
+            'responseType' => $responseType,
+            'jobs' => $jobs
         ]);
+    }
+    public function delete(ServerRequest $request)
+    {
+        $params = $request->getQueryParams();
+        $job = Job::find($params['id']);
+        $job->delete();
+        return $this->redirectHTML('../jobs/add');
     }
 }
