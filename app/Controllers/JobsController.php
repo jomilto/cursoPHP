@@ -9,7 +9,7 @@ use Laminas\Diactoros\ServerRequest;
 
 class JobsController extends BaseController {
     public function index(){
-        $jobs = Job::all();
+        $jobs = Job::withTrashed()->get();
         return  $this->renderHTML('jobs/addJob.twig',compact('jobs'));
     }
     public function add(ServerRequest $request)

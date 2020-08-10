@@ -3,11 +3,17 @@ namespace App\Models;
 
 use App\Traits\{HasDefaultImage};
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 // require_once('BaseElement.php');
 
+
 class Job extends Model{
-    use HasDefaultImage;
+  use HasDefaultImage;
+  use SoftDeletes;
+  // use method withThrased() para obtener todos los
+  // registros incluso los borrados
+
     // public function __construct($title,$description)
     // {
     //     parent::__construct($title,$description);
