@@ -10,6 +10,7 @@
         "laminas/laminas-diactoros": "^2.3",
         "twig/twig": "^3.0",
         "respect/validation": "^2.0",
-        "vlucas/phpdotenv": "^5.1"
+        "vlucas/phpdotenv": "^5.1",
+        "php-di/php-di": "^6.2"
     }
 }
