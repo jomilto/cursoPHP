@@ -7,6 +7,16 @@
     require_once('../vendor/autoload.php');
 
     session_start();
+    
+    use Illuminate\Database\Capsule\Manager as Capsule;
+    use Aura\Router\RouterContainer;
+    
+    use Laminas\Diactoros\Response;
+    use Laminas\Diactoros\ServerRequestFactory;
+    use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
+    use WoohooLabs\Harmony\Harmony;
+    use WoohooLabs\Harmony\Middleware\DispatcherMiddleware;
+    use WoohooLabs\Harmony\Middleware\LaminasEmitterMiddleware;
 
     $serverName = $_SERVER['SERVER_NAME'];
 
@@ -15,9 +25,6 @@
         $dotenv->load();
     }
 
-    use Illuminate\Database\Capsule\Manager as Capsule;
-    use Aura\Router\RouterContainer;
-  
     $container = new DI\Container();
     $capsule = new Capsule;
     
@@ -63,59 +70,59 @@
     $map = $routeContainer->getMap();
 
     $map->get('index',lookRoute('/'),[
-        'controller' => 'App\Controllers\IndexController',
-        'action' => 'index'
+         'App\Controllers\IndexController',
+         'index'
     ]);
 
     $map->get('addJobs',lookRoute('/jobs/add'),[
-        'controller' => 'App\Controllers\JobsController',
-        'action' => 'index',
+        'App\Controllers\JobsController',
+         'index',
         'auth' => true
     ]);
 
     $map->post('saveJobs',lookRoute('/jobs/add'),[
-        'controller' => 'App\Controllers\JobsController',
-        'action' => 'add',
+        'App\Controllers\JobsController',
+         'add',
         'auth' => true
     ]);
 
     $map->get('deleteJobs',lookRoute('/jobs/delete'),[
-        'controller' => 'App\Controllers\JobsController',
-        'action' => 'delete',
+        'App\Controllers\JobsController',
+         'delete',
         'auth' => true
     ]);
 
     $map->get('addUsers',lookRoute('/users/add'),[
-        'controller' => 'App\Controllers\UsersController',
-        'action' => 'index',
+        'App\Controllers\UsersController',
+         'index',
         'auth' => true
     ]);
 
     $map->post('saveUsers',lookRoute('/users/add'),[
-        'controller' => 'App\Controllers\UsersController',
-        'action' => 'add',
+        'App\Controllers\UsersController',
+         'add',
         'auth' => true
     ]);
 
     $map->get('loginForm',lookRoute('/login'),[
-        'controller' => 'App\Controllers\AuthController',
-        'action' => 'index'
+        'App\Controllers\AuthController',
+         'index'
     ]);
 
     $map->post('auth',lookRoute('/login'),[
-        'controller' => 'App\Controllers\AuthController',
-        'action' => 'auth'
+        'App\Controllers\AuthController',
+         'auth'
     ]);
 
     $map->get('logout',lookRoute('/logout'),[
-        'controller' => 'App\Controllers\AuthController',
-        'action' => 'logout',
+        'App\Controllers\AuthController',
+         'logout',
         'auth' => true
     ]);
 
     $map->get('admin',lookRoute('/admin'),[
-        'controller' => 'App\Controllers\AdminController',
-        'action' => 'index',
+        'App\Controllers\AdminController',
+         'index',
         'auth' => true
     ]);
 
@@ -126,28 +133,36 @@
     if (!$route){
         echo 'Esta ruta no existe';
     }else{
-        $handlerData = $route->handler;
-        $needsAuth = $handlerData['auth'] ?? false;
-        $userId = $_SESSION['user_id'] ?? null;
+        // $handlerData = $route->handler;
+        // $needsAuth = $handlerData['auth'] ?? false;
+        // $userId = $_SESSION['user_id'] ?? null;
 
-        if($needsAuth && !$userId){
-            $controllerName = 'App\Controllers\AuthController';
-            $actionName = 'index';
-        }else{
-            $controllerName = $handlerData['controller'];
-            $actionName = $handlerData['action'];
-        }
-        $controller = $container->get($controllerName);
-        $response = $controller->$actionName($request);
+        // if($needsAuth && !$userId){
+        //     $controllerName = 'App\Controllers\AuthController';
+        //     $actionName = 'index';
+        // }else{
+        //     $controllerName = $handlerData['controller'];
+        //     $actionName = $handlerData['action'];
+        // }
+        $harmony = new Harmony($request, new Response());
+        $harmony
+            ->addMiddleware(new LaminasEmitterMiddleware(new SapiEmitter()))
+            ->addMiddleware(new Middlewares\AuraRouter($routeContainer))
+            ->addMiddleware(new DispatcherMiddleware($container,'request-handler'))
+            ->run();
 
-        foreach($response->getHeaders() as $name=>$values){
-            foreach($values as $value){
-                header(sprintf('%s: %s', $name,$value),false);
-            }
-        }
 
-        http_response_code($response->getStatusCode());
-        echo $response->getBody();
+        // $controller = $container->get($controllerName);
+        // $response = $controller->$actionName($request);
+
+        // foreach($response->getHeaders() as $name=>$values){
+        //     foreach($values as $value){
+        //         header(sprintf('%s: %s', $name,$value),false);
+        //     }
+        // }
+
+        // http_response_code($response->getStatusCode());
+        // echo $response->getBody();
     }
 
     // $route = $_GET['route'] ?? '/';
