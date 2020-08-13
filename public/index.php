@@ -11,12 +11,13 @@
     use Illuminate\Database\Capsule\Manager as Capsule;
     use Aura\Router\RouterContainer;
     
-    use Laminas\Diactoros\Response;
-    use Laminas\Diactoros\ServerRequestFactory;
-    use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
+    use Zend\Diactoros\Response;
+    use Zend\Diactoros\ServerRequestFactory;
+    use Zend\HttpHandlerRunner\Emitter\SapiEmitter;
+
     use WoohooLabs\Harmony\Harmony;
     use WoohooLabs\Harmony\Middleware\DispatcherMiddleware;
-    use WoohooLabs\Harmony\Middleware\LaminasEmitterMiddleware;
+    use WoohooLabs\Harmony\Middleware\HttpHandlerRunnerMiddleware;
 
     $serverName = $_SERVER['SERVER_NAME'];
 
@@ -47,7 +48,7 @@
     // Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
     $capsule->bootEloquent();
 
-    $request = Laminas\Diactoros\ServerRequestFactory::fromGlobals(
+    $request = Zend\Diactoros\ServerRequestFactory::fromGlobals(
         $_SERVER,
         $_GET,
         $_POST,
@@ -146,7 +147,7 @@
         // }
         $harmony = new Harmony($request, new Response());
         $harmony
-            ->addMiddleware(new LaminasEmitterMiddleware(new SapiEmitter()))
+            ->addMiddleware(new HttpHandlerRunnerMiddleware(new SapiEmitter()))
             ->addMiddleware(new Middlewares\AuraRouter($routeContainer))
             ->addMiddleware(new DispatcherMiddleware($container,'request-handler'))
             ->run();

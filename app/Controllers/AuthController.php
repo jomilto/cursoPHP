@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Models\{User};
 use Respect\Validation\Validator;
 use Respect\Validation\Exceptions\NestedValidationException;
-use Laminas\Diactoros\ServerRequest;
+use Zend\Diactoros\ServerRequest;
 
 class AuthController extends BaseController {
     public function index(){

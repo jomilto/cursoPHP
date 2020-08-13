@@ -3,10 +3,10 @@
 namespace App\Controllers;
 
 use App\Models\{Job};
-use App\Services\{JobServices};
+use App\Services\{JobService};
 use Respect\Validation\Validator;
 use Respect\Validation\Exceptions\NestedValidationException;
-use Laminas\Diactoros\ServerRequest;
+use Zend\Diactoros\ServerRequest;
 
 class JobsController extends BaseController {
     private $jobService;
@@ -69,7 +69,7 @@ class JobsController extends BaseController {
             }
         }
 
-        $jobs = Job::all();
+        $jobs = Job::withTrashed()->get();
 
         return  $this->renderHTML('jobs/addJob.twig',[
             'responseMessage' => $responseMessage,
