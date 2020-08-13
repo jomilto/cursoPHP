@@ -136,18 +136,11 @@
     }else{
         // $handlerData = $route->handler;
         // $needsAuth = $handlerData['auth'] ?? false;
-        // $userId = $_SESSION['user_id'] ?? null;
 
-        // if($needsAuth && !$userId){
-        //     $controllerName = 'App\Controllers\AuthController';
-        //     $actionName = 'index';
-        // }else{
-        //     $controllerName = $handlerData['controller'];
-        //     $actionName = $handlerData['action'];
-        // }
         $harmony = new Harmony($request, new Response());
         $harmony
             ->addMiddleware(new HttpHandlerRunnerMiddleware(new SapiEmitter()))
+            ->addMiddleware(new \App\Middlewares\AuthMiddleware())
             ->addMiddleware(new Middlewares\AuraRouter($routeContainer))
             ->addMiddleware(new DispatcherMiddleware($container,'request-handler'))
             ->run();
