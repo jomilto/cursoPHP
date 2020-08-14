@@ -18,6 +18,7 @@
     use WoohooLabs\Harmony\Harmony;
     use WoohooLabs\Harmony\Middleware\DispatcherMiddleware;
     use WoohooLabs\Harmony\Middleware\HttpHandlerRunnerMiddleware;
+    use \Franzl\Middleware\Whoops\WhoopsMiddleware;
 
     $serverName = $_SERVER['SERVER_NAME'];
 
@@ -139,6 +140,7 @@
             $harmony = new Harmony($request, new Response());
             $harmony
                 ->addMiddleware(new HttpHandlerRunnerMiddleware(new SapiEmitter()))
+                ->addMiddleware(new WhoopsMiddleware())
                 ->addMiddleware(new \App\Middlewares\AuthMiddleware())
                 ->addMiddleware(new Middlewares\AuraRouter($routeContainer))
                 ->addMiddleware(new DispatcherMiddleware($container,'request-handler'))
@@ -146,10 +148,10 @@
         } catch (Exception $e) {
             $emitter = new SapiEmitter();
             $emitter->emit(new Response\EmptyResponse(400));
-        } catch (Error $e) {
-            $emitter = new SapiEmitter();
-            $emitter->emit(new Response\EmptyResponse(500));
-        }
+        }// } catch (Error $e) {
+        //     $emitter = new SapiEmitter();
+        //     $emitter->emit(new Response\EmptyResponse(500));
+        // }
 
        
 
