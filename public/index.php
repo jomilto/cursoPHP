@@ -1,9 +1,5 @@
 <?php
 
-    ini_set('display_errors', 1);
-    ini_set('display_startup_error',1);
-    error_reporting(E_ALL);
-
     require_once('../vendor/autoload.php');
 
     session_start();
@@ -18,13 +14,27 @@
     use WoohooLabs\Harmony\Harmony;
     use WoohooLabs\Harmony\Middleware\DispatcherMiddleware;
     use WoohooLabs\Harmony\Middleware\HttpHandlerRunnerMiddleware;
+    
     use \Franzl\Middleware\Whoops\WhoopsMiddleware;
+
+    use Monolog\Logger;
+    use Monolog\Handler\StreamHandler;
+
+    // create a log channel
+    $log = new Logger('app');
+    $log->pushHandler(new StreamHandler(__DIR__ . '/../logs/app.log', Logger::WARNING));
 
     $serverName = $_SERVER['SERVER_NAME'];
 
     if ($serverName == 'localhost'){
         $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
         $dotenv->load();
+    }
+
+    if($_ENV['DEBUG']=='true'){
+        ini_set('display_errors', 1);
+        ini_set('display_startup_error',1);
+        error_reporting(E_ALL);
     }
 
     $container = new DI\Container();
@@ -139,13 +149,17 @@
         try {
             $harmony = new Harmony($request, new Response());
             $harmony
-                ->addMiddleware(new HttpHandlerRunnerMiddleware(new SapiEmitter()))
-                ->addMiddleware(new WhoopsMiddleware())
-                ->addMiddleware(new \App\Middlewares\AuthMiddleware())
-                ->addMiddleware(new Middlewares\AuraRouter($routeContainer))
-                ->addMiddleware(new DispatcherMiddleware($container,'request-handler'))
-                ->run();
+                ->addMiddleware(new HttpHandlerRunnerMiddleware(new SapiEmitter()));
+            if($_ENV['DEBUG'] == 'true'){
+                $harmony->addMiddleware(new WhoopsMiddleware());
+            }
+            $harmony->addMiddleware(new \App\Middlewares\AuthMiddleware())
+                    ->addMiddleware(new Middlewares\AuraRouter($routeContainer))
+                    ->addMiddleware(new DispatcherMiddleware($container,'request-handler'));
+            $harmony->run();
         } catch (Exception $e) {
+            // add records to the log
+            $log->warning($e->getMessage());
             $emitter = new SapiEmitter();
             $emitter->emit(new Response\EmptyResponse(400));
         }// } catch (Error $e) {
