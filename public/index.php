@@ -134,16 +134,24 @@
     if (!$route){
         echo 'Esta ruta no existe';
     }else{
-        // $handlerData = $route->handler;
-        // $needsAuth = $handlerData['auth'] ?? false;
 
-        $harmony = new Harmony($request, new Response());
-        $harmony
-            ->addMiddleware(new HttpHandlerRunnerMiddleware(new SapiEmitter()))
-            ->addMiddleware(new \App\Middlewares\AuthMiddleware())
-            ->addMiddleware(new Middlewares\AuraRouter($routeContainer))
-            ->addMiddleware(new DispatcherMiddleware($container,'request-handler'))
-            ->run();
+        try {
+            $harmony = new Harmony($request, new Response());
+            $harmony
+                ->addMiddleware(new HttpHandlerRunnerMiddleware(new SapiEmitter()))
+                ->addMiddleware(new \App\Middlewares\AuthMiddleware())
+                ->addMiddleware(new Middlewares\AuraRouter($routeContainer))
+                ->addMiddleware(new DispatcherMiddleware($container,'request-handler'))
+                ->run();
+        } catch (Exception $e) {
+            $emitter = new SapiEmitter();
+            $emitter->emit(new Response\EmptyResponse(400));
+        } catch (Error $e) {
+            $emitter = new SapiEmitter();
+            $emitter->emit(new Response\EmptyResponse(500));
+        }
+
+       
 
 
         // $controller = $container->get($controllerName);
