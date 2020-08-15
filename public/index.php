@@ -4,7 +4,6 @@
 
     session_start();
     
-    use Illuminate\Database\Capsule\Manager as Capsule;
     use Aura\Router\RouterContainer;
     
     use Zend\Diactoros\Response;
@@ -24,13 +23,6 @@
     $log = new Logger('app');
     $log->pushHandler(new StreamHandler(__DIR__ . '/../logs/app.log', Logger::WARNING));
 
-    $serverName = $_SERVER['SERVER_NAME'];
-
-    if ($serverName == 'localhost'){
-        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
-        $dotenv->load();
-    }
-
     if($_ENV['DEBUG']=='true'){
         ini_set('display_errors', 1);
         ini_set('display_startup_error',1);
@@ -38,27 +30,7 @@
     }
 
     $container = new DI\Container();
-    $capsule = new Capsule;
     
-    $capsule->addConnection([
-        'driver'    => $_ENV['DB_DRIVER'],
-        'host'      => $_ENV['DB_HOST'],
-        'database'  => $_ENV['DB_NAME'],
-        'username'  => $_ENV['DB_USER'],
-        'password'  => $_ENV['DB_PWD'],
-        'port'      => $_ENV['DB_PORT'],
-        'sslmode'   => $_ENV['SSLMODE'],
-        'charset'   => 'utf8',
-        'collation' => 'utf8_unicode_ci',
-        'prefix'    => '',
-    ]);
-        
-        // Make this Capsule instance available globally via static methods... (optional)
-    $capsule->setAsGlobal();
-    
-    // Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
-    $capsule->bootEloquent();
-
     $request = Zend\Diactoros\ServerRequestFactory::fromGlobals(
         $_SERVER,
         $_GET,
