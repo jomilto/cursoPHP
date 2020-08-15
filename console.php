@@ -22,3 +22,10 @@ $application->run();
 // crontab.guru
 // despues de modificar:
 // sudo systemctl restart cron
+
+// si se usa solo pdo, se debe preparar el query
+// y no confiar en el usuario
+
+// strip_tags(variable)
+// htmlscapechars(variable)
+// para convertir los textos de xss a html normal
