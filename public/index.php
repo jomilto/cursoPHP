@@ -138,6 +138,16 @@
         'auth' => true
     ]);
 
+    $map->get('contactForm',lookRoute('/contact'),[
+        'App\Controllers\ContactController',
+         'index'
+    ]);
+
+    $map->post('contactSend',lookRoute('/contact/send'),[
+        'App\Controllers\ContactController',
+        'send'
+    ]);
+
     $matcher = $routeContainer->getMatcher();
 
     $route = $matcher->match($request);
