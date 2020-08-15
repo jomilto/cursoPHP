@@ -6,6 +6,7 @@ use Zend\Diactoros\ServerRequest;
 use Swift_Mailer;
 use Swift_Message;
 use Swift_SmtpTransport;
+use App\Models\Message;
 
 class ContactController extends BaseController{
     public function index()
@@ -17,22 +18,12 @@ class ContactController extends BaseController{
     {
         $data=$request->getParsedBody();
 
-        $transport = (new Swift_SmtpTransport($_ENV['SMTP_HOST'], $_ENV['SMTP_HOST']))
-            ->setUsername($_ENV['SMTP_USER'])
-            ->setPassword($_ENV['SMTP_PASSWORD']);
+        $message = new Message();
+        $message->name =$data['name'];
+        $message->email =$data['email'];
+        $message->message =$data['message'];
+        $message->save();
 
-        // Create the Mailer using your created Transport
-        $mailer = new Swift_Mailer($transport);
-
-        // Create a message
-        $message = (new Swift_Message('SomeBody Contact you'))
-        ->setFrom(['contact@mail.com' => 'Contact Form'])
-        ->setTo([$data['email'], $data['email'] => $data['name']])
-        ->setBody($data['message']);
-
-        // Send the message
-        $result = $mailer->send($message);
-
-        return $this->redirectHTML('contact');   
+        return $this->redirectHTML('../contact');   
     }
 }
